@@ -44,32 +44,19 @@ function didYouWin () {
 }
 
 function updateUser () {
-  if (gameTied) {
-    gameResult = 'You tied.';
-  }
-  if (didYouWin()) {
-    gameResult = 'YOU WON!';
-  } else {
-    gameResult = 'You lost.'
-  }
-
-  // gameResult = (
-  //   if (gameTied) 'You tied.';
-  //   (didYouWin()) ? 'You won!' : 'You lost';
-  // );
-
-  $('#result').text('You picked ' + stringify( userChoice ) + '. The computer picked ' + stringify( compChoice ) + '. ' + gameResult );
-  // if (gameTied) $('#result').appendText( 'You tied.' );
+  if (gameTied) gameResult = 'You tied.';
+  if (didYouWin()) gameResult = 'YOU WON!';
+  else gameResult = 'You lost.';
+  $('#result').text('You picked ' + stringify(userChoice) + '. The computer picked ' + stringify(compChoice) + '. ' + gameResult);
 }
 
-$( '#game' ).on( 'click', 'button', function (event) {
+$('#game').on('click', 'button', function (event) {
   event.preventDefault();
 
-  userChoice = userPicks( $( this ).text() );
+  userChoice = userPicks($(this).text());
   compChoice = compPicks();
 
   var gameTied = (userChoice === compChoice) ? true : false;
-
 
   updateUser();
 

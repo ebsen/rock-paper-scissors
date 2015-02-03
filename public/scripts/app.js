@@ -14,24 +14,20 @@ function userPicks (choice) {
   if (choice === 'Scissors') return 3;
   else return 0;
 }
-
 // returns 1,2,3 randomly. called on div click event
 function compPicks () {
   return Math.floor(Math.random() * 3);
 }
-
 function stringify (choice) {
   if (choice === 1) return 'rock';
   if (choice === 2) return 'paper';
   if (choice === 3) return 'scissors';
   else return '';
 }
-
 function gameTied (user, comp) {
   if (user === comp) return true;
   else return false;
 }
-
 // compares picks. called on div click event
 function didYouWin () {
   if (userChoice === ROCK && compChoice === SCISSORS) {
@@ -42,7 +38,6 @@ function didYouWin () {
   }
   else return false;
 }
-
 function updateUser () {
   if (gameTied) gameResult = 'You tied.';
   if (didYouWin()) gameResult = 'YOU WON!';

@@ -1,58 +1,73 @@
-var ROCK       = 1
-  , PAPER      = 2
-  , SCISSORS   = 3
-  , userChoice = 0
-  , compChoice = 0
-  , gameResult = '';
-  // rock > scissors, scissors > paper, paper > rock
-  //    1 > 3                3 > 2          2 > 1
-
-// returns 1,2,3. called on div click event
-function userPicks (choice) {
-  if (choice === 'Rock') return 1;
-  if (choice === 'Paper') return 2;
-  if (choice === 'Scissors') return 3;
-  else return 0;
-}
-// returns 1,2,3 randomly. called on div click event
-function compPicks () {
-  return Math.floor(Math.random() * 3);
-}
-function stringify (choice) {
-  if (choice === 1) return 'rock';
-  if (choice === 2) return 'paper';
-  if (choice === 3) return 'scissors';
-  else return '';
-}
-function gameTied (user, comp) {
-  if (user === comp) return true;
-  else return false;
-}
-// compares picks. called on div click event
-function didYouWin () {
-  if (userChoice === ROCK && compChoice === SCISSORS) {
-    return true;
+// Model needs outside event handler because more than one click.
+// Need objects for player and computer because need to update player with the selections.
+var model = {
+  ROCK:     {id: 1, name: 'rock'},
+  PAPER:    {id: 2, name: 'paper'},
+  SCISSORS: {id: 3, name: 'scissors'},
+  idForName: function (name) {
+    // return model[name.toUpperCase()].id;
+    var property = model[name.toUpperCase()];
+    return {
+      id: property.id,
+      name: property.name
+    };
+  },
+  randomId: function () {
+    // return Math.floor(Math.random() * 3 + 1);
+    var computerSelection = Math.floor(Math.random() * 3 + 1);
+    for (option in model) {
+      if (model.hasOwnProperty(option)) {
+        var property = model[option.toUpperCase()];
+        if (property.id === computerSelection) {
+          return {
+            id: property.id,
+            name: property.name
+          };
+        }
+      }
+    }
   }
-  if (userChoice > compChoice) {
-    return true;
+};
+
+function compare (player, computer) {
+  // console.log('Player: ' + player.name);
+  console.log(player);
+  console.log(computer);
+  // console.log(model.ROCK);
+  // returns true, false, or -1
+  if (player.id === computer.id) {
+    console.log('Tie!');
+    return false;
   }
-  else return false;
-}
-function updateUser () {
-  if (gameTied) gameResult = 'You tied.';
-  if (didYouWin()) gameResult = 'YOU WON!';
-  else gameResult = 'You lost.';
-  $('#result').text('You picked ' + stringify(userChoice) + '. The computer picked ' + stringify(compChoice) + '. ' + gameResult);
+  else return true;
 }
 
-$('#game').on('click', 'button', function (event) {
-  event.preventDefault();
+// Basically our `function main`
+$('#game').on('click', '.selection', function (event) {
+  event.preventDefault(); // whatever that does
 
-  userChoice = userPicks($(this).text());
-  compChoice = compPicks();
+  // var playerOne, playerTwo;
+  var playerOne = model.idForName($(this).text());
+  var playerTwo = model.randomId();
+  var winner = compare(playerOne, playerTwo);
+  if (winner) {
+    // update accordingly
+    console.log('Winner!');
+  }
+  // else they tied.
 
-  var gameTied = (userChoice === compChoice) ? true : false;
+  /*
+    click choice
+    store it
+    choose for computer
+    compare
+    update
+  */
 
-  updateUser();
+
+  //TODO: What if there's a tie?
+  // var tie = if (compare() === -1) // or something
+  // if (!tie) // stuff
+  // updateView(compare($(this).text(), randomSelection()));
 
 });

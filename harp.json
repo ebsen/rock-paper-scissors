@@ -1,6 +1,6 @@
 {
   "globals": {
-    "name"        : "Harp Minimal Boilerplate",
-    "description" : "A template for static websites"
+    "name"        : "Rock Paper Scissors",
+    "description" : "A game"
   }
 }

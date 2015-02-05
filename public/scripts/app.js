@@ -1,27 +1,27 @@
 // Model needs outside event handler because more than one click.
 // Need objects for player and computer because need to update player with the selections.
-var model = {
-  ROCK:     {id: 1, name: 'rock'},
-  PAPER:    {id: 2, name: 'paper'},
-  SCISSORS: {id: 3, name: 'scissors'},
-  idForName: function (name) {
-    // return model[name.toUpperCase()].id;
-    var property = model[name.toUpperCase()];
+var Model = {
+  ROCK:     {id: 1, choice: 'rock'},
+  PAPER:    {id: 2, choice: 'paper'},
+  SCISSORS: {id: 3, choice: 'scissors'},
+  choose: function (choice) {
+    // return Model[choice.toUpperCase()].id;
+    var property = Model[choice.toUpperCase()];
     return {
       id: property.id,
-      name: property.name
+      choice: property.choice
     };
   },
-  randomId: function () {
+  random: function () {
     // return Math.floor(Math.random() * 3 + 1);
-    var computerSelection = Math.floor(Math.random() * 3 + 1);
-    for (option in model) {
-      if (model.hasOwnProperty(option)) {
-        var property = model[option.toUpperCase()];
-        if (property.id === computerSelection) {
+    var selection = Math.floor(Math.random() * 3 + 1);
+    for (option in Model) {
+      if (Model.hasOwnProperty(option)) {
+        var property = Model[option.toUpperCase()];
+        if (property.id === selection) {
           return {
             id: property.id,
-            name: property.name
+            choice: property.choice
           };
         }
       }
@@ -30,44 +30,47 @@ var model = {
 };
 
 function compare (player, computer) {
-  // console.log('Player: ' + player.name);
+  // return 1 if player won
+  // return -1 if computer won
+  // return 0 if tie
   console.log(player);
   console.log(computer);
-  // console.log(model.ROCK);
-  // returns true, false, or -1
   if (player.id === computer.id) {
-    console.log('Tie!');
-    return false;
+    return 0;
   }
-  else return true;
+  else {
+    // Scissors beats paper.
+    // Paper beats rock.
+    // Rock beats scissors.
+    if (player.choice === Model.ROCK.choice) {
+      if (computer.choice === Model.SCISSORS.choice) {
+        return 1;
+      }
+    }
+    if (player.choice === Model.PAPER.choice) {
+      if (computer.choice === Model.ROCK.choice) {
+        return 1;
+      }
+    }
+    if (player.choice === Model.SCISSORS.choice) {
+      if (computer.choice === Model.PAPER.choice) {
+        return 1;
+      }
+    }
+    // otherwise you lost
+    else return -1;
+  }
 }
 
 // Basically our `function main`
 $('#game').on('click', '.selection', function (event) {
   event.preventDefault(); // whatever that does
 
-  // var playerOne, playerTwo;
-  var playerOne = model.idForName($(this).text());
-  var playerTwo = model.randomId();
+  var playerOne = Model.choose($(this).text());
+  var playerTwo = Model.random();
   var winner = compare(playerOne, playerTwo);
-  if (winner) {
-    // update accordingly
-    console.log('Winner!');
-  }
-  // else they tied.
-
-  /*
-    click choice
-    store it
-    choose for computer
-    compare
-    update
-  */
-
-
-  //TODO: What if there's a tie?
-  // var tie = if (compare() === -1) // or something
-  // if (!tie) // stuff
-  // updateView(compare($(this).text(), randomSelection()));
+  if (winner === 0) {
+    $('#result').text('You both picked ' + playerOne.choice + '. Tie game.');
+  } else $('#result').text('You picked ' + playerOne.choice + '. The computer picked ' + playerTwo.choice + '. You ' + ((winner === 1) ? 'won' : 'lost') + '.');
 
 });

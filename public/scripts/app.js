@@ -6,11 +6,12 @@ var Model = {
   SCISSORS: {id: 3, choice: 'scissors'},
   choose: function (choice) {
     // return Model[choice.toUpperCase()].id;
-    var property = Model[choice.toUpperCase()];
-    return {
-      id: property.id,
-      choice: property.choice
-    };
+    // var property = Model[choice.toUpperCase()];
+    // return {
+    //   id: property.id,
+    //   choice: property.choice
+    // };
+    return Model[choice.toUpperCase()];
   },
   random: function () {
     // return Math.floor(Math.random() * 3 + 1);
@@ -19,10 +20,11 @@ var Model = {
       if (Model.hasOwnProperty(option)) {
         var property = Model[option.toUpperCase()];
         if (property.id === selection) {
-          return {
-            id: property.id,
-            choice: property.choice
-          };
+          return property;
+          // return {
+          //   id: property.id,
+          //   choice: property.choice
+          // };
         }
       }
     }
@@ -42,18 +44,18 @@ function compare (player, computer) {
     // Scissors beats paper.
     // Paper beats rock.
     // Rock beats scissors.
-    if (player.choice === Model.ROCK.choice) {
-      if (computer.choice === Model.SCISSORS.choice) {
+    if (player === Model.ROCK) {
+      if (computer === Model.SCISSORS) {
         return 1;
       }
     }
-    if (player.choice === Model.PAPER.choice) {
-      if (computer.choice === Model.ROCK.choice) {
+    if (player === Model.PAPER) {
+      if (computer === Model.ROCK) {
         return 1;
       }
     }
-    if (player.choice === Model.SCISSORS.choice) {
-      if (computer.choice === Model.PAPER.choice) {
+    if (player === Model.SCISSORS) {
+      if (computer === Model.PAPER) {
         return 1;
       }
     }

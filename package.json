@@ -3,11 +3,10 @@
   "description": "A really basic Rock, Paper, Scissors game",
   "private": true,
   "devDependencies": {
-    "browser-sync": "^1.7.2",
+    "browser-sync": "^2.0.0",
     "gulp": "^3.8.10",
     "gulp-debug": "^1.0.1",
-    "gulp-ftp": "^1.0.1",
     "gulp-util": "^3.0.1",
-    "harp": "^0.14.0"
+    "harp": "^0.17.0"
   }
 }

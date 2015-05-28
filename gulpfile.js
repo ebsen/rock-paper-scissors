@@ -6,7 +6,7 @@ var harp        = require('harp');
 
 gulp.task('commands', function () {
   console.log('This project has the following commands available:\n\t- Run `gulp serve` to launch a local version of the site.\n\t- Run `gulp compile` to build a version of the website for FTP upload.');
-})
+});
 
 gulp.task('compile', function () {
   var compiledOutput = 'www';

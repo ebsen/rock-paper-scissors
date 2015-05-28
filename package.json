@@ -1,7 +1,10 @@
 {
   "name": "rock-paper-scissors",
+  "author": "Erik Ebsen <erik@ebsen.me>",
   "description": "A really basic Rock, Paper, Scissors game",
+  "version": "1.0.0",
   "private": true,
+  "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.0.0",
     "gulp": "^3.8.10",
@@ -11,5 +14,13 @@
   },
   "scripts": {
     "deploy": "gulp compile && surge www"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebsen/rock-paper-scissors.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ebsen/rock-paper-scissors/issues"
+  },
+  "homepage": "https://github.com/ebsen/rock-paper-scissors#readme"
 }
